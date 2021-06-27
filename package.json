@@ -4,7 +4,6 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "prestart": "webpack",
     "start": "node server.js",
     "lite-server": "lite-server"
   },
