@@ -19,15 +19,10 @@ const config = {
       start_url: "/",
       icons: [
         {
-          src: path.resolve("public/icons/icon-192x192.png"),
-          sizes: [96, 128, 192, 256, 384, 512],
-          destination: path.join("assets", "icons")
-        },
-        {
-            src: path.resolve("public/icons/icon-512x512.png"),
-            sizes: [96, 128, 192, 256, 384, 512],
+            src: path.resolve("public/icons/icon-192x192.png"),
+            sizes: [192, 512],
             destination: path.join("assets", "icons")
-          }
+        }
       ]
     })
   ],
