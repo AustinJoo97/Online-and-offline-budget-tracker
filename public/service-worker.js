@@ -8,7 +8,9 @@ const FILES_TO_CACHE = [
   "/assets/css/styles.css",
   "/assets/js/index.js",
   "/icons/icon-192x192.png",
-  "/icons/icon-512x512.png"
+  "/icons/icon-512x512.png",
+  "/assets/fonts/fontawesome.min.css",
+  "https://cdn.jsdelivr.net/npm/chart.js@2.8.0"
 ];
 
 self.addEventListener("install", event => {
@@ -50,7 +52,7 @@ self.addEventListener("fetch", event => {
     return;
   }
 
-  if (event.request.url.includes("/api/images")) {
+  if (event.request.url.includes("/api/transaction")) {
     event.respondWith(
       caches.open(DATA_CACHE_NAME).then(cache => {
         return fetch(event.request)
