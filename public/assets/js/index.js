@@ -224,13 +224,6 @@ function checkDatabase() {
                 populateTable();
                 populateChart();
               })
-              .catch((err) => {
-                console.log(err);
-                const chartNotGenned = document.createElement("h3");
-                chartNotGenned.innerText =
-                  "Your chart will render when you are back online!";
-                document.querySelector("#tbody").append(chartNotGenned);
-              });
           }
         });
     }
@@ -244,6 +237,10 @@ function saveRecord(record){
   const store = transaction.objectStore('BudgetStore');
 
   store.add(record);
+
+  populateTotal();
+  populateTable();
+  populateChart();
 }
 
 
