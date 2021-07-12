@@ -19,7 +19,8 @@ request.onupgradeneeded = function (event) {
   }
 };
 
-request.onsuccess = function (event) {
+request.onsuccess = function (event){
+  console.log('on success called')
   db = event.target.result;
 
   // Check if app is online before reading from db
@@ -210,10 +211,31 @@ function checkDatabase() {
             const currentStore = transaction.objectStore('BudgetStore');
 
             currentStore.clear();
+
+            fetch("/api/transaction")
+              .then((response) => {
+                return response.json();
+              })
+              .then((data) => {
+                // save db data on global variable
+                transactions = data;
+
+                populateTotal();
+                populateTable();
+                populateChart();
+              })
+              .catch((err) => {
+                console.log(err);
+                const chartNotGenned = document.createElement("h3");
+                chartNotGenned.innerText =
+                  "Your chart will render when you are back online!";
+                document.querySelector("#tbody").append(chartNotGenned);
+              });
           }
         });
     }
   };
+
 }
 
 function saveRecord(record){
