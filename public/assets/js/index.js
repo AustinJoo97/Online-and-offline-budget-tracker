@@ -27,27 +27,28 @@ request.onsuccess = function (event){
   if (navigator.onLine) {
     checkDatabase();
   }
+
+  fetch("/api/transaction")
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      // save db data on global variable
+      transactions = data;
+  
+      populateTotal();
+      populateTable();
+      populateChart();
+    })
+    .catch((err) => {
+      console.log(err);
+      const chartNotGenned = document.createElement("h3");
+      chartNotGenned.innerText =
+        "Your chart will render when you are back online!";
+      document.querySelector("#tbody").append(chartNotGenned);
+    });
 };
 
-fetch("/api/transaction")
-  .then((response) => {
-    return response.json();
-  })
-  .then((data) => {
-    // save db data on global variable
-    transactions = data;
-
-    populateTotal();
-    populateTable();
-    populateChart();
-  })
-  .catch((err) => {
-    console.log(err);
-    const chartNotGenned = document.createElement("h3");
-    chartNotGenned.innerText =
-      "Your chart will render when you are back online!";
-    document.querySelector("#tbody").append(chartNotGenned);
-  });
 
 function populateTotal() {
   // reduce transaction amounts to a single total value

@@ -9,19 +9,23 @@ const FILES_TO_CACHE = [
   "/assets/js/index.js",
   "/icons/icon-192x192.png",
   "/icons/icon-512x512.png",
-  "/assets/fonts/fontawesome.min.css",
-  "https://cdn.jsdelivr.net/npm/chart.js@2.8.0",
-  'https://fonts.googleapis.com/css?family=Istok+Web%7CMontserrat:800&display=swap',
   'https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css',
+  'https://fonts.googleapis.com/css?family=Istok+Web%7CMontserrat:800&display=swap',
 ];
 
 self.addEventListener("install", event => {
   event.waitUntil(
     caches
-      .open(CACHE_NAME)
-      .then(cache => cache.addAll(FILES_TO_CACHE))
-      .then(() => self.skipWaiting())
-  );
+    .open(DATA_CACHE_NAME)
+    .then(cache => {
+      cache.addAll(["/api/transaction"]);
+     }), 
+     caches.open(CACHE_NAME)
+    .then(cache => {
+       cache.addAll(FILES_TO_CACHE)
+       .then(() => self.skipWaiting())
+    })
+  )
 });
 
 self.addEventListener("activate", event => {
